@@ -1,3 +1,3 @@
 File to work on blackjack strategies
 
-- using 12 as a placer for Ace for now
+- dev.py in the works, Ace is 'A'
