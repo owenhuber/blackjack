@@ -1,3 +1,4 @@
 File to work on blackjack strategies
 
-- dev.py in the works, Ace is 'A'
+- "helpahs.py" are our helper functions
+- dev.py in the works, and should eventually be our engine

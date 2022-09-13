@@ -3,7 +3,7 @@
 def notace(l):
     '''returns integer in list that may include string '''
     if len(l) == 2 : 
-        return [e for e in l if isinstance(e, int)][0]
+        return [e for e in l if isinstance(e, int)]
     return [e for e in l if isinstance(e, int)]
 
 def surrender(l, d):
@@ -68,14 +68,11 @@ def hit(l, d):
 
     if 'A' in l :
         # tests out should use Ace as 1 or 11, and accordingly if should hit
-        if len(l) == 2 : 
-            hard1 = [notace(l) + 1, 0]
-            hard2 = [notace(l) + 11, 0]
-        else : 
-            hard1 = [sum(notace(l)) + 1, 0]
-            hard2 = [sum(notace(l)) + 11, 0]
+        hard1 = [sum(notace(l)) + 1, 0]
+        hard2 = [sum(notace(l)) + 11, 0]
         if hit(hard1, d) or hit(hard2, d):
             return True
+        return False
     
     hard = sum(l)
     if hard > 16 : 
@@ -87,3 +84,56 @@ def hit(l, d):
     if hard == 12 and d < 4 : 
         return True
     return False
+
+
+def hitting(l, d, qu, coun):
+    '''process for hitting, returns final hand'''
+
+    # if you aren't hitting, return that hand
+    if not hit(l, d):
+        return l
+    
+    # if you are hitting...
+    l.append(qu.get())
+    coun += 1
+    return hitting(l, d, qu, coun)
+    
+
+def summ(l) : 
+    '''allows us to evaluate the sum of a hand with aces too, returns higher one if having 11 doesnt make bust'''
+    if 'A' not in l : 
+        return sum(l)
+    before = sum(notace(l))
+    if before < 11 : 
+        return before + 11
+    return before + 1
+
+
+def dealerhitting(dealh, qu, coun): 
+    # dealer must stop! stop I say, stop!
+    if summ(dealh) > 16 : 
+        return dealh
+    
+    # if you must keep hitting...
+    dealh.append(qu.get())
+    coun += 1
+    return dealerhitting(dealh, qu, coun)
+
+
+    
+def push(you, deal) : 
+    '''do you push with the dealer?'''
+    if you > 21 : 
+        return False
+    if you == deal : 
+        return True
+    return False
+
+def win(you, deal) : 
+    '''do you win vs the dealer?'''
+    if you > 21 : 
+        return False
+    if deal > 21 : 
+        return True
+    if you > deal : 
+        return True
