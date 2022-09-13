@@ -1,0 +1,21 @@
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'legoBlocks' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts following parameters:
+#  1. INTEGER n
+#  2. INTEGER m
+#
+prac = [4, 12]
+v = 4
+
+if 3 < v < 5 :
+    print('FUCK YEA')
+
