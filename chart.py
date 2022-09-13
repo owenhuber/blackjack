@@ -1,3 +1,15 @@
+'''Standard chart of what to do in different circumstances'''
+
+def surrender(l, d):
+    '''first : should you surrender?'''
+    if 12 in l :
+        return False
+    if sum(l) == 16 and d > 8 :
+        return True
+    if sum(l) == 15 and d == 10 : 
+        return True
+    return False
+
 def cansplit(l, d) : 
     '''second : should you split?'''
     # TODO double after split implement
