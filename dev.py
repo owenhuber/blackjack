@@ -1,11 +1,9 @@
-import numpy as np
 import random
 import threading
 import queue
 from helpahs import *
 
 # One deck of cards
-# 12 is an Ace
 onedeck = []
 for i in range(4):
     onedeck += [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 'A']
@@ -15,8 +13,12 @@ fourdeck = []
 for i in range(4): 
     fourdeck += onedeck
 
+# shuffling
+random.shuffle(fourdeck)
+
 # the card ('plastic') indicating when the dealer should stop
 plastic = random.randint(0, 208)
+
 
 # units won
 won = 0
@@ -37,7 +39,7 @@ for val in fourdeck:
     q.put(val)
 
 
-while count < plastic : 
+while count < 120 : 
 
     # multiplier in case of double
     mult = 1
@@ -66,12 +68,12 @@ while count < plastic :
         spent += 1
 
         # first run through with the hand 
-        first1 = q.git()
+        first1 = q.get()
         firsth = [first, first1]
-        finfirst = hitting(sech, deal1, q, count)
+        finfirst = hitting(firsth, deal1, q, count)
 
         # second run through with the hand TODO
-        sec1 = q.git()
+        sec1 = q.get()
         sech = [sec, sec1]
         finsec = hitting(sech, deal1, q, count)
 
@@ -124,7 +126,7 @@ while count < plastic :
         continue
 
 
-        
+# How did this method do? 
 
 print(f'games played : {games}')
 print(f'total spent : {spent}')

@@ -10,7 +10,7 @@ def surrender(l, d):
     '''first : should you surrender?'''
     if 'A' in l :
         return False
-    if sum(l) == 16 and d > 8 :
+    if sum(l) == 16 and (d == 'A' or d > 8 ):
         return True
     if sum(l) == 15 and d == 10 : 
         return True
@@ -23,6 +23,10 @@ def cansplit(l, d) :
         return False
     if l[0] == 'A' or l[0] == 8 : 
         return True
+    if d == 'A' : 
+        if l[0] == 'A' or l[0] == 8 :
+            return True
+        return False
     if l[0] == 9 :
         if d < 10 and d != 7 :
             return True
@@ -40,8 +44,11 @@ def cansplit(l, d) :
 
 def double(l, d) : 
     '''third : Should you double'''
+
     if 'A' in l: 
-        val = notace(l)
+        if d == 'A' : 
+            return False
+        val = notace(l)[0]
         if d == 6 and val < 9 :
             return True
         if d == 5 and val < 8 :
@@ -54,6 +61,8 @@ def double(l, d) :
             return True
         if d == 2 and l[0] == 7 :
             return True
+        return False
+    if d == 'A' and sum(l) != 11 : 
         return False
     if sum(l) == 11 : 
         return True
