@@ -32,4 +32,4 @@ while count < plastic :
     deal2 = q.get()
     count += 4
 
-
+# testing pipeline
