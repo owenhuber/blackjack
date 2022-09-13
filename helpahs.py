@@ -137,3 +137,4 @@ def win(you, deal) :
         return True
     if you > deal : 
         return True
+    return False
