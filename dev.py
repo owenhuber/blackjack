@@ -126,3 +126,7 @@ while count < plastic :
 
         
 
+print(f'games played : {games}')
+print(f'total spent : {spent}')
+print(f'units won : {won}')
+print(f'cards went through : {count}')
