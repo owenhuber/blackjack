@@ -38,7 +38,7 @@ q = queue.Queue()
 for val in fourdeck:
     q.put(val)
 
-
+# TODO figure out why this maxes out at 140ish and I cant replace with 'plastic'
 while count < 140 : 
 
     # multiplier in case of double
