@@ -39,7 +39,7 @@ for val in fourdeck:
     q.put(val)
 
 
-while count < 120 : 
+while count < 140 : 
 
     # multiplier in case of double
     mult = 1
@@ -100,12 +100,31 @@ while count < 120 :
         if win(secnum, dealnum):
             won += 2
             continue
+        continue
 
 
     if double(hand, deal1):
         # if we double and win, twice the payout. either way, twice the cost
         spent += 1
-        mult = 2
+        # the third card that we are hit with
+        third = q.get()
+        count += 1
+
+        # your hand's final value
+        num1 = summ(hand) + summ([third])
+
+        # dealers final hand after hitting
+        deala = summ(dealerhitting(dealhand, q, count))
+
+        # do you win the hand ? 
+        if push(num1, deala):
+            won += 2
+            continue
+        if win(num1, deala):
+            won += 4
+            continue
+        continue
+
     
     # if none above applies, we can go back to base case
     myhand = hitting(hand, deal1, q, count)
@@ -119,10 +138,10 @@ while count < 120 :
 
     # do you win the hand ? 
     if push(mynum, dnum):
-        won += 1
+        won += 1*mult
         continue
     if win(mynum, dnum):
-        won += 2
+        won += 2*mult
         continue
 
 
