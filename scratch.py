@@ -23,4 +23,11 @@ l = ['A', 2]
 
 val = [e for e in l if isinstance(e, int)][0]
 
-print(val)
+n = 1
+
+while n < 20: 
+    n += 1
+    if n % 3 == 0 : 
+        continue
+    print(n)
+

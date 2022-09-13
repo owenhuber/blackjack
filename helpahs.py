@@ -66,6 +66,7 @@ def double(l, d) :
 def hit(l, d): 
     '''third : should you hit?'''
 
+
     if 'A' in l :
         # tests out should use Ace as 1 or 11, and accordingly if should hit
         hard1 = [sum(notace(l)) + 1, 0]
@@ -77,7 +78,7 @@ def hit(l, d):
     hard = sum(l)
     if hard > 16 : 
         return False
-    if d > 6 : 
+    if d == 'A' or d > 6 : 
         return True
     if hard < 12 : 
         return True
