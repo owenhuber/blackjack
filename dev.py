@@ -8,7 +8,7 @@ from chart import *
 # 12 is an Ace
 onedeck = []
 for i in range(4):
-    onedeck += [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 12]
+    onedeck += [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 'A']
 
 # a shuffle four decks of cards (standard shoe)
 fourdeck = []

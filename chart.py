@@ -1,8 +1,14 @@
 '''Standard chart of what to do in different circumstances'''
 
+def notace(l):
+    '''returns integer in list that may include string '''
+    if len(l) == 2 : 
+        return [e for e in l if isinstance(e, int)][0]
+    return [e for e in l if isinstance(e, int)]
+
 def surrender(l, d):
     '''first : should you surrender?'''
-    if 12 in l :
+    if 'A' in l :
         return False
     if sum(l) == 16 and d > 8 :
         return True
@@ -15,7 +21,7 @@ def cansplit(l, d) :
     # TODO double after split implement
     if l[0] != l[1] or l[0] == 10 or l[0] == 5:
         return False
-    if l[0] == 12 or l[0] == 8 : 
+    if l[0] == 'A' or l[0] == 8 : 
         return True
     if l[0] == 9 :
         if d < 10 and d != 7 :
@@ -34,17 +40,17 @@ def cansplit(l, d) :
 
 def double(l, d) : 
     '''third : Should you double'''
-    l = sorted(l)
-    if l[1] == 12 : 
-        if d == 6 and l[0] < 9 :
+    if 'A' in l: 
+        val = notace(l)
+        if d == 6 and val < 9 :
             return True
-        if d == 5 and l[0] < 8 :
+        if d == 5 and val < 8 :
             return True
-        if d == 4 and 3 < l[0] < 8 :
+        if d == 4 and 3 < val < 8 :
             return True
-        if d == 4 and 3 < l[0] < 8 :
+        if d == 4 and 3 < val < 8 :
             return True
-        if d == 3 and 5 < l[0] < 8 :
+        if d == 3 and 5 < val < 8 :
             return True
         if d == 2 and l[0] == 7 :
             return True
@@ -59,6 +65,18 @@ def double(l, d) :
 
 def hit(l, d): 
     '''third : should you hit?'''
+
+    if 'A' in l :
+        # tests out should use Ace as 1 or 11, and accordingly if should hit
+        if len(l) == 2 : 
+            hard1 = [notace(l) + 1, 0]
+            hard2 = [notace(l) + 11, 0]
+        else : 
+            hard1 = [sum(notace(l)) + 1, 0]
+            hard2 = [sum(notace(l)) + 11, 0]
+        if hit(hard1, d) or hit(hard2, d):
+            return True
+    
     hard = sum(l)
     if hard > 16 : 
         return False

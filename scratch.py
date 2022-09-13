@@ -19,3 +19,8 @@ v = 4
 if 3 < v < 5 :
     print('FUCK YEA')
 
+l = ['A', 2]
+
+val = [e for e in l if isinstance(e, int)][0]
+
+print(val)
