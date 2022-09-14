@@ -31,3 +31,4 @@ while n < 20:
         continue
     print(n)
 
+print(17/ 35)

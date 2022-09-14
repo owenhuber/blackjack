@@ -10,7 +10,7 @@ for i in range(4):
 
 # a shuffle four decks of cards (standard shoe)
 fourdeck = []
-for i in range(4): 
+for i in range(1000): 
     fourdeck += onedeck
 
 # shuffling
@@ -39,7 +39,7 @@ for val in fourdeck:
     q.put(val)
 
 # TODO figure out why this maxes out at 140ish and I cant replace with 'plastic'
-while count < 140 : 
+while count < 140*250 : 
 
     # multiplier in case of double
     mult = 1
@@ -148,6 +148,7 @@ while count < 140 :
 # How did this method do? 
 
 print(f'games played : {games}')
+print(f'cards went through : {count}')
 print(f'total spent : {spent}')
 print(f'units won : {won}')
-print(f'cards went through : {count}')
+print(f'win percentage (by volume) : {won *100 / (won + spent)}%')
