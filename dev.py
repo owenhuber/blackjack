@@ -15,19 +15,22 @@ fourdeck = []
 for i in range(4): 
     fourdeck += onedeck
 
-# shuffling
-random.shuffle(fourdeck)
 
-# The strategy that our player will follow can be found here https://www.blackjackapprenticeship.com/blackjack-strategy-charts/
-
-q = queue.Queue()
-for val in fourdeck:
-    q.put(val)
 
 # TODO figure out why this maxes out at 140ish and I cant replace with 'plastic'
 
-def fourdeckplay(queue) :
+def fourdeckplay(l) :
     '''simulates playing with four decks'''
+
+    # shuffling
+    random.shuffle(l)
+
+    # The strategy that our player will follow can be found here https://www.blackjackapprenticeship.com/blackjack-strategy-charts/
+
+    q = queue.Queue()
+
+    for val in l:
+        q.put(val)
 
     # the card ('plastic') indicating when the dealer should stop
     plastic = random.randint(0, 208)
@@ -44,7 +47,7 @@ def fourdeckplay(queue) :
     # units gambled
     spent = 0
 
-    while count < 140 : 
+    while count < 120 : 
 
         # multiplier in case of double
         mult = 1
@@ -52,10 +55,10 @@ def fourdeckplay(queue) :
         spent += 1
 
         # getting our hands
-        first = queue.get()
-        deal1 = queue.get()
-        sec = queue.get()
-        deal2 = queue.get()
+        first = q.get()
+        deal1 = q.get()
+        sec = q.get()
+        deal2 = q.get()
         hand = [first, sec]
         dealhand = [deal1, deal2]
         count += 4
@@ -73,17 +76,17 @@ def fourdeckplay(queue) :
             spent += 1
 
             # first run through with the hand 
-            first1 = queue.get()
+            first1 = q.get()
             firsth = [first, first1]
-            finfirst = hitting(firsth, deal1, queue, count)
+            finfirst = hitting(firsth, deal1, q, count)
 
             # second run through with the hand TODO
-            sec1 = queue.get()
+            sec1 = q.get()
             sech = [sec, sec1]
-            finsec = hitting(sech, deal1, queue, count)
+            finsec = hitting(sech, deal1, q, count)
 
             # dealers final hand after hitting
-            findeal = dealerhitting(dealhand, queue, count)
+            findeal = dealerhitting(dealhand, q, count)
 
             # every hands final count 
             firstnum = summ(finfirst)
@@ -112,14 +115,14 @@ def fourdeckplay(queue) :
             # if we double and win, twice the payout. either way, twice the cost
             spent += 1
             # the third card that we are hit with
-            third = queue.get()
+            third = q.get()
             count += 1
 
             # your hand's final value
             num1 = summ(hand) + summ([third])
 
             # dealers final hand after hitting
-            deala = summ(dealerhitting(dealhand, queue, count))
+            deala = summ(dealerhitting(dealhand, q, count))
 
             # do you win the hand ? 
             if push(num1, deala):
@@ -132,10 +135,10 @@ def fourdeckplay(queue) :
 
     
         # if none above applies, we can go back to base case
-        myhand = hitting(hand, deal1, queue, count)
+        myhand = hitting(hand, deal1, q, count)
 
         # dealers final hand after hitting
-        dhand = dealerhitting(dealhand, queue, count)
+        dhand = dealerhitting(dealhand, q, count)
 
         # every hands final count 
         mynum = summ(myhand)
@@ -154,20 +157,23 @@ def fourdeckplay(queue) :
 
 
 
-# shuffling
-random.shuffle(fourdeck)
 
-# The strategy that our player will follow can be found here https://www.blackjackapprenticeship.com/blackjack-strategy-charts/
-
-qc1 = queue.Queue()
-for val in fourdeck:
-    qc1.put(val)
 
 
 # the strategy that we will be following for true counts can be found here : https://www.blackjackapprenticeship.com/how-to-count-cards/
 
-def fourdeckcount1(queue) :
+def fourdeckcount1(l) :
     '''simulates playing with four decks and using the "true count"'''
+
+    # shuffling
+    random.shuffle(l)
+
+    # The strategy that our player will follow can be found here https://www.blackjackapprenticeship.com/blackjack-strategy-charts/
+
+    qc1 = queue.Queue()
+
+    for val in fourdeck:
+        qc1.put(val)
 
     # the card ('plastic') indicating when the dealer should stop
     plastic = random.randint(0, 208)
@@ -203,10 +209,10 @@ def fourdeckcount1(queue) :
     
 
         # getting our hands
-        first = queue.get()
-        deal1 = queue.get()
-        sec = queue.get()
-        deal2 = queue.get()
+        first = qc1.get()
+        deal1 = qc1.get()
+        sec = qc1.get()
+        deal2 = qc1.get()
         hand = [first, sec]
         dealhand = [deal1, deal2]
         count += 4
@@ -227,17 +233,17 @@ def fourdeckcount1(queue) :
             spent += mult
 
             # first run through with the hand 
-            first1 = queue.get()
+            first1 = qc1.get()
             firsth = [first, first1]
-            finfirst = c1hitting(firsth, deal1, queue, count, runningcount, dicti)
+            finfirst = c1hitting(firsth, deal1, qc1, count, runningcount, dicti)
 
             # second run through with the hand TODO
-            sec1 = queue.get()
+            sec1 = qc1.get()
             sech = [sec, sec1]
-            finsec = c1hitting(sech, deal1, queue, count, runningcount, dicti)
+            finsec = c1hitting(sech, deal1, qc1, count, runningcount, dicti)
 
             # dealers final hand after hitting
-            findeal = c1dealerhitting(dealhand, queue, count, runningcount, dicti)
+            findeal = c1dealerhitting(dealhand, qc1, count, runningcount, dicti)
 
             # every hands final count 
             firstnum = summ(finfirst)
@@ -266,14 +272,14 @@ def fourdeckcount1(queue) :
             # if we double and win, twice the payout. either way, twice the cost
             spent += mult
             # the third card that we are hit with
-            third = queue.get()
+            third = qc1.get()
             count += 1
 
             # your hand's final value
             num1 = summ(hand) + summ([third])
 
             # dealers final hand after hitting
-            deala = summ(c1dealerhitting(dealhand, queue, count, runningcount, dicti))
+            deala = summ(c1dealerhitting(dealhand, qc1, count, runningcount, dicti))
 
             # do you win the hand ? 
             if push(num1, deala):
@@ -286,10 +292,10 @@ def fourdeckcount1(queue) :
 
     
         # if none above applies, we can go back to base case
-        myhand = c1hitting(hand, deal1, queue, count, runningcount, dicti)
+        myhand = c1hitting(hand, deal1, qc1, count, runningcount, dicti)
 
         # dealers final hand after hitting
-        dhand = c1dealerhitting(dealhand, queue, count, runningcount, dicti)
+        dhand = c1dealerhitting(dealhand, qc1, count, runningcount, dicti)
 
         # every hands final count 
         mynum = summ(myhand)
@@ -316,9 +322,10 @@ notcounting = 0
 # our average of winning percentage not counting
 counting = 0
 
-for i in range(10) : 
-    notcounting += fourdeckplay(q)
-    counting += fourdeckcount1(qc1)
+for i in range(100) : 
+    notcounting += fourdeckplay(fourdeck)
+    counting += fourdeckcount1(fourdeck)
 
-print(f'total win percentage not counting over 1000 shoes : {notcounting/ 10}')
-print(f'total win percentage counting over 1000 shoes : {counting/ 10}')
+print(f'total win percentage not counting over 1000 shoes : {notcounting/ 100}')
+print(f'total win percentage counting over 1000 shoes : {counting/ 100}')
+
