@@ -190,7 +190,7 @@ def fourdeckcount1(queue) :
     # units gambled
     spent = 0
 
-    while count < 140 : 
+    while count < 120 : 
 
         # multiplier in case of double or strong deck
         mult = 1
