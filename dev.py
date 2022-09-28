@@ -202,9 +202,9 @@ def fourdeckcount1(l) :
         mult = 1
         spent += 1
 
-        if Truecount(runningcount, count) < -1/2 : 
+        if Truecount(runningcount, count) < -3 : 
             mult = 3
-            spent += 3
+            spent += 2
 
     
 
@@ -322,10 +322,10 @@ notcounting = 0
 # our average of winning percentage not counting
 counting = 0
 
-for i in range(100) : 
+for i in range(1000) : 
     notcounting += fourdeckplay(fourdeck)
     counting += fourdeckcount1(fourdeck)
 
-print(f'total win percentage not counting over 1000 shoes : {notcounting/ 100}')
-print(f'total win percentage counting over 1000 shoes : {counting/ 100}')
+print(f'total win percentage not counting over 1000 shoes : {notcounting/ 1000}')
+print(f'total win percentage counting over 1000 shoes : {counting/ 1000}')
 
